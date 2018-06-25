@@ -10,11 +10,13 @@
         <p-radioButton name="group1" value="Mobile" label="Mobile" [(ngModel)]="site_type" inputId="opt2"></p-radioButton>
     </div>
 </div>
-<p-button (onClick)="buttonClick('newProject')" label="建立新專案"></p-button>
-<p-button (onClick)="buttonClick('generate')" label="建立網站檔案" [disabled]="!site_name"></p-button>
-<p-button (onClick)="buttonClick('recover')" label="從 dist 覆蓋版控" [disabled]="!site_name"></p-button>
-<p-button (onClick)="buttonClick('delete')" label="刪除網站檔案"></p-button>
+<p-button (onClick)="buttonClick('newProject')" label="建立新專案" [disabled]="status"></p-button>
+<p-button (onClick)="buttonClick('generate')" label="建立網站檔案" [disabled]="!site_name||status"></p-button>
+<p-button (onClick)="buttonClick('recover')" label="從 dist 覆蓋版控" [disabled]="!site_name||status"></p-button>
+<p-button (onClick)="buttonClick('delete')" label="刪除網站檔案" [disabled]="status"></p-button>
+
+<p-messages [(value)]="msgs"></p-messages>
 
 <h3 class="first">刪除指定路徑</h3>
 <input id="input" type="text" size="30" pInputText [(ngModel)]="path">
-<p-button (onClick)="buttonClick('selectDelete')" label="刪除" [disabled]="!path"></p-button>
+<p-button (onClick)="buttonClick('selectDelete')" label="刪除" [disabled]="!path||status"></p-button>

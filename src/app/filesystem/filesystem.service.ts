@@ -10,12 +10,8 @@ export class FilesystemService {
   constructor(private http: HttpClient) {
   }
 
-  generate(params) {
-    return this.http.post<any>('/api/theme_file.php', params)
-      .subscribe(
-        (data) => {
-          console.log(data.msg);
-        });
+  processingFile(params) {
+    return this.http.post<any>('/api/theme_file.php', params);     
   }
 }
 
