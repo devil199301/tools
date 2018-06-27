@@ -5,8 +5,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { FilesystemModule } from './filesystem/filesystem.module';
 import { SharedModule } from './shared/shared.module';
-import {InputTextModule} from 'primeng/inputtext';
-import { FormsModule } from '@angular/forms';
+import { LayoutModule } from './layout/layout.module';
 
 @NgModule({
   declarations: [
@@ -16,8 +15,9 @@ import { FormsModule } from '@angular/forms';
     BrowserModule,
     AppRoutingModule,
     SharedModule,
-    FilesystemModule,
-    InputTextModule
+    LayoutModule,
+    FilesystemModule
+    
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -3,13 +3,15 @@ import { CommonModule } from '@angular/common';
 import { GenerateComponent } from './generate/generate.component';
 import { FilesystemService } from './filesystem.service';
 import { SharedModule } from '../shared/shared.module';
+import { SettingComponent } from './setting/setting.component';
+import { DeletedComponent } from './deleted/deleted.component';
 
 @NgModule({
   imports: [
     CommonModule,
     SharedModule
   ],
-  declarations: [GenerateComponent],
+  declarations: [GenerateComponent, SettingComponent, DeletedComponent],
   exports:[GenerateComponent],
   providers:[FilesystemService]
 })

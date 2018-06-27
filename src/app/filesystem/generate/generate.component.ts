@@ -5,7 +5,7 @@ import { Message } from 'primeng/components/common/api';
 @Component({
   selector: 'app-generate',
   templateUrl: './generate.component.html',
-  styleUrls: ['./generate.component.css']
+  styleUrls: ['./generate.component.scss']
 })
 
 export class GenerateComponent implements OnInit {
