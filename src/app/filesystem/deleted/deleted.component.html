@@ -1,11 +1,11 @@
 <h2>刪除</h2>
 <div class="ui-g">
     <div class="ui-g-12">
-        <p-radioButton name="group1" value="defaule" label="預設" [(ngModel)]="pathType"></p-radioButton>
-        <input id="disabled-input" type="text" size="30" pInputText [ngModel]="path" disabled />
+        <p-radioButton name="group1" value="default" label="預設" [(ngModel)]="fileSetting.deleteType"></p-radioButton>
+        <input id="disabled-input" type="text" size="30" pInputText [ngModel]="fileSetting.target" disabled />
     </div>
     <div class="ui-g-12">
-        <p-radioButton name="group1" value="custom" label="自訂" [(ngModel)]="pathType"></p-radioButton>
-        <input id="input" type="text" size="30" pInputText [(ngModel)]="customPath">
+        <p-radioButton name="group1" value="custom" label="自訂" [(ngModel)]="fileSetting.deleteType"></p-radioButton>
+        <input id="input" type="text" size="30" pInputText [(ngModel)]="fileSetting.customPath">
     </div>
 </div>

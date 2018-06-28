@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FilesystemService } from '../filesystem.service';
+import { FilesystemService, fileSetting } from '../filesystem.service';
 
 
 @Component({
@@ -9,13 +9,13 @@ import { FilesystemService } from '../filesystem.service';
 })
 export class DeletedComponent implements OnInit {
 
-  pathType = 'default';
-  path:string;
-  customPath: string;
+  fileSetting: fileSetting;
 
   constructor(private filesystemService: FilesystemService) { }
 
   ngOnInit() {
+    this.fileSetting = this.filesystemService.getfileSetting();
+    this.fileSetting.deleteType = 'default';
   }
 
 }
