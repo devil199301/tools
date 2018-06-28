@@ -27,9 +27,9 @@ export class GenerateComponent implements OnInit {
 
     this.status = true;
     this.changeMsgs('info','處理中');
-    
+
     if (actionType === 'selectDelete' && this.path === undefined) {
-      this.status = false;      
+      this.status = false;
       this.changeMsgs('error','路徑不可為空')
     } else if (actionType === 'selectDelete' && this.path !== undefined) {
       this.params.path = this.path;
@@ -46,7 +46,7 @@ export class GenerateComponent implements OnInit {
         (data) => {
           this.status = false;
           this.changeMsgs('success',data.msg)
-        });;
+        });
   }
 
   changeMsgs(severity, summary): void {

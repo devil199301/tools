@@ -13,7 +13,8 @@ export class FilesystemService {
   originalFileSetting: fileSetting = {
     vsts: 'E:/VSTS',
     originalFile: 'E:/',
-    target: 'E:/'
+    target: 'E:/',
+    site_type: 'Portal'
   };
 
   fileSetting: fileSetting;
@@ -41,6 +42,7 @@ export class FilesystemService {
   processingFile(params) {
     return this.http.post<any>('/api/theme_file.php', params);
   }
+
 }
 
 // tslint:disable-next-line:class-name
@@ -53,7 +55,7 @@ export interface fileAction {
 
 // tslint:disable-next-line:class-name
 export interface fileSetting {
-  action: string;
+  action?: string;
   vsts?: string;
   originalFile: string;
   target?: string;
