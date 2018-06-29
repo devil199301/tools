@@ -1,0 +1,15 @@
+<p>
+  slotmachine works!
+</p>
+
+<h3>要圖片div嗎?</h3>
+<p-inputSwitch [(ngModel)]="div"></p-inputSwitch>
+<h3>要文字P嗎?</h3>
+<p-inputSwitch [(ngModel)]="text"></p-inputSwitch>
+
+
+<div>
+  <p-button (onClick)="clickFunction()" label="輸出"></p-button>
+</div>
+
+<p [hidden]="output==''">{{ output }}</p>

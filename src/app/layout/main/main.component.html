@@ -1,21 +1,27 @@
 <div id="layout-topbar">
-    <a [routerLink]="['/']">TOOLS</a>
+  <a [routerLink]="['/']">TOOLS</a>
 </div>
 
 <ul id="layout-sidebar">
-    <li class="layout-menu">
-        <a #filesystem [class.active-menuitem]="'filesystem' == activeMenuId" (click)="activeMenuId = (activeMenuId === 'filesystem' ? null : 'filesystem')">檔案系統</a>
-        <div [ngClass]="{'submenushow': ('filesystem' == activeMenuId), 'submenuhide': ('filesystem' != activeMenuId)}">
-            <a [routerLink]="['/Generate']">● 產生檔案</a>
-            <a [routerLink]="['/Deleted']">● 刪除檔案</a>
-            <a [routerLink]="['/Setting']">● 設定</a>
-        </div>
-    </li>
+  <li class="layout-menu">
+    <a #filesystem [class.active-menuitem]="'filesystem' == activeMenuId" (click)="activeMenuId = (activeMenuId === 'filesystem' ? null : 'filesystem')">檔案系統</a>
+    <div [ngClass]="{'submenushow': ('filesystem' == activeMenuId), 'submenuhide': ('filesystem' != activeMenuId)}">
+      <a [routerLink]="['/Generate']">● 產生檔案</a>
+      <a [routerLink]="['/Deleted']">● 刪除檔案</a>
+      <a [routerLink]="['/Setting']">● 設定</a>
+    </div>
+  </li>
+  <li class="layout-menu">
+    <a #template [class.active-menuitem]="'template' == activeMenuId" (click)="activeMenuId = (activeMenuId === 'template' ? null : 'template')">產程式碼</a>
+    <div [ngClass]="{'submenushow': ('template' == activeMenuId), 'submenuhide': ('template' != activeMenuId)}">
+      <a [routerLink]="['/slottemplate']">● 拉霸機</a>
+    </div>
+  </li>
 </ul>
 
 
 <div id="layout-content">
-    <div>
-        <router-outlet></router-outlet>
-    </div>
+  <div>
+    <router-outlet></router-outlet>
+  </div>
 </div>

@@ -8,7 +8,9 @@ import { HttpClientModule } from '@angular/common/http';
 import { MessagesModule } from 'primeng/messages';
 import { MessageModule } from 'primeng/message';
 import { AngularFontAwesomeModule } from 'angular-font-awesome';
-import {PanelMenuModule} from 'primeng/panelmenu';
+import { PanelMenuModule } from 'primeng/panelmenu';
+import { CheckboxModule } from 'primeng/checkbox';
+
 @NgModule({
   imports: [
     CommonModule,
@@ -20,9 +22,10 @@ import {PanelMenuModule} from 'primeng/panelmenu';
     MessagesModule,
     MessageModule,
     AngularFontAwesomeModule,
-    PanelMenuModule
+    PanelMenuModule,
+    CheckboxModule
   ],
-  exports:[
+  exports: [
     FormsModule,
     HttpClientModule,
     InputTextModule,
@@ -31,8 +34,9 @@ import {PanelMenuModule} from 'primeng/panelmenu';
     MessagesModule,
     MessageModule,
     AngularFontAwesomeModule,
-    PanelMenuModule
-    ],
+    PanelMenuModule,
+    CheckboxModule
+  ],
   declarations: []
 })
 export class SharedModule { }
