@@ -1,38 +1,53 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 import { InputTextModule } from 'primeng/inputtext';
 import { RadioButtonModule } from 'primeng/radiobutton';
 import { ButtonModule } from 'primeng/button';
-import { HttpClientModule } from '@angular/common/http';
 import { MessagesModule } from 'primeng/messages';
 import { MessageModule } from 'primeng/message';
 import { AngularFontAwesomeModule } from 'angular-font-awesome';
-import {PanelMenuModule} from 'primeng/panelmenu';
+import { PanelMenuModule } from 'primeng/panelmenu';
+import { CheckboxModule } from 'primeng/checkbox';
+import { InputSwitchModule } from 'primeng/inputswitch';
+import {ListboxModule} from 'primeng/listbox';
+import {InputTextareaModule} from 'primeng/inputtextarea';
+
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
-    InputTextModule,
     HttpClientModule,
+    // PrimeNG
+    InputTextModule,
     RadioButtonModule,
     ButtonModule,
     MessagesModule,
     MessageModule,
     AngularFontAwesomeModule,
-    PanelMenuModule
+    PanelMenuModule,
+    CheckboxModule,
+    InputSwitchModule,
+    ListboxModule,
+    InputTextareaModule
   ],
-  exports:[
+  exports: [
     FormsModule,
     HttpClientModule,
     InputTextModule,
+    // PrimeNG
     RadioButtonModule,
     ButtonModule,
     MessagesModule,
     MessageModule,
     AngularFontAwesomeModule,
-    PanelMenuModule
-    ],
+    PanelMenuModule,
+    CheckboxModule,
+    InputSwitchModule,
+    ListboxModule,
+    InputTextareaModule
+  ],
   declarations: []
 })
 export class SharedModule { }

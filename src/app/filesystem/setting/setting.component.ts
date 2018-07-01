@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FilesystemService, fileSetting } from '../filesystem.service';
 
 @Component({
   selector: 'app-setting',
@@ -7,12 +8,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SettingComponent implements OnInit {
 
-  path = 'D:/GPK/Theme/';
+  fileSetting: fileSetting;
 
-  constructor() { }
+  constructor(private filesystemService: FilesystemService) { }
 
   ngOnInit() {
-    console.log(123)
+    this.fileSetting = this.filesystemService.getfileSetting();
+  }
+
+  update(newData) {
+    this.filesystemService.upDatafileSetting(newData);
   }
 
 }

@@ -6,6 +6,7 @@ import { AppComponent } from './app.component';
 import { FilesystemModule } from './filesystem/filesystem.module';
 import { SharedModule } from './shared/shared.module';
 import { LayoutModule } from './layout/layout.module';
+import { TemplateModule } from './template/template.module';
 
 @NgModule({
   declarations: [
@@ -16,8 +17,8 @@ import { LayoutModule } from './layout/layout.module';
     AppRoutingModule,
     SharedModule,
     LayoutModule,
-    FilesystemModule
-    
+    FilesystemModule,
+    TemplateModule
   ],
   providers: [],
   bootstrap: [AppComponent]

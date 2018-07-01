@@ -1,0 +1,31 @@
+<h1>拉霸機產生器</h1>
+<div class="ui-g">
+    <div class="ui-g-12 ui-md-3">
+        <p-listbox [options]="clickList2" [(ngModel)]="outputClick" multiple="multiple" checkbox="checkbox" optionLabel="name">
+            <p-header>
+                <i class="fa fa-gamepad"></i> 娛樂城
+            </p-header>
+        </p-listbox>
+    </div>
+    <div class="ui-g-12 ui-md-5">
+        <ul>
+            <li *ngFor="let c of outputClick" style="margin-bottom: 10px;">
+                <h3>{{ c.name }} - <small>{{ c.click }}</small> </h3>
+                <h4>遊戲名稱：</h4>
+                <input type="text" pInputText [(ngModel)]="c.gameList" size="40" />
+            </li>
+        </ul>
+    </div>
+    <div class="ui-g-12 ui-md-4" [hidden]="outputClick.length==0">
+        <h3>要圖片div嗎?</h3>
+        <p-inputSwitch [(ngModel)]="div"></p-inputSwitch>
+        <h3>要文字P嗎?</h3>
+        <p-inputSwitch [(ngModel)]="text"></p-inputSwitch>
+
+        <div>
+            <p-button (onClick)="clickFunction()" label="輸出"></p-button>
+        </div>
+
+        <textarea [rows]="5" [cols]="30" pInputTextarea [(ngModel)]="output" [hidden]="output==''"></textarea>
+    </div>
+</div>

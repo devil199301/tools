@@ -1,1 +1,8 @@
 <h2>設定</h2>
+<h3>主檔案</h3>
+<input id="input" type="text" size="30" pInputText [(ngModel)]="fileSetting.originalFile">
+<h3>版控路徑</h3>
+<input id="input" type="text" size="30" pInputText [(ngModel)]="fileSetting.vsts">
+<h3>輸出路徑</h3>
+<input id="input" type="text" size="30" pInputText [(ngModel)]="fileSetting.target">
+<p-button (onClick)="update(fileSetting)" label="更新"></p-button>

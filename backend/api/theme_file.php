@@ -8,27 +8,23 @@ Mobile 主線檔 主線檔 資料夾名稱必須為 GPK.Web.Mobile
  */
 
 /* start 自行調整路徑 */
-$portal_location = "E:/"; //Portal 主線檔放置路徑
-$mobile_location = "E:/"; //Mobile 主線檔放置路徑
-$theme_location = "D:/VSTS/Theme/"; //Theme 路徑
-$target_location = "E:/fix/"; //產生檔案目標路徑
+//$portal_location = "E:/"; //Portal 主線檔放置路徑
+//$mobile_location = "E:/"; //Mobile 主線檔放置路徑
+//$theme_location = "D:/VSTS/Theme/"; //Theme 路徑
+//$target_location = "E:/fix/"; //產生檔案目標路徑
 /* end 自行調整路徑 */
 
 $postdata = file_get_contents("php://input");
 $request = json_decode($postdata);
 
+print_r($request);
+
 $action = $request->action; //動作 (建立、還原)
 $site_code = $request->site_code; //站台代號
 $site_type = $request->site_type; //站台類型 (Portal, Mobile)
-
-switch ($site_type) {
-    case 'Portal':
-        $source_location = $portal_location;
-        break;
-    case 'Mobile':
-        $source_location = $mobile_location;
-        break;
-}
+$source_location = $request->originalFile; // 主線放置地方
+$target_location= $request->target; //產生檔案目標路徑 
+$theme_location = $request->vsts; // 版控路徑
 
 $target_file = $target_location . "GPK.Web." . $site_type; //目標檔案文件夾
 $theme_site = $theme_location . $site_type . "/" . $site_code . "." . $site_type; //該站 theme 資料夾
@@ -87,6 +83,22 @@ switch ($action) {
         )));
         break;
 
+    // 刪除
+    case 'delete':
+        $deleteType = $request->deleteType;
+
+        if ($deleteType == 'custom') {
+            $deletePath = $request->customPath;
+            $target_location = $deletePath;
+        }
+
+        deleteDirectory($target_location . "/GPK.Web." . $site_type);
+        deleteDirectory($target_location . "/GPK.Web." . $site_type . ".Backup");
+        print_r(json_encode(array(
+            "code" => 100,
+            "msg" => "已刪除 " . $target_file,
+        )));
+        break;
     default:
         # code...
         break;
