@@ -1,9 +1,12 @@
 <?php
 // 解析輸入資料
- $postdata = file_get_contents("php://input");
- $request = json_decode($postdata);
+$postdata = file_get_contents("php://input");
+$request = json_decode($postdata);
 
-$path = 'E:\ng6\test';
+$path = 'C:\Users\YenChih\Downloads\MZ001-01\slot';
+
+//print_r(json_encode($request));
+//$path = $request -> $path;
 
 $output = array();
 
@@ -25,11 +28,14 @@ function getDirList($dir)
             if (is_dir($file) && basename($file) != '.' && basename($file) != '..') {
                 getDirList($file);
             } else if (filename($file) != "." && filename($file) != "..") {
+                
+                // 過濾掉檔案副檔名
+                $name = pathinfo($file, PATHINFO_FILENAME);
 
-                // 塞遊戲名稱
-                array_push($gamelist, $file);
+                // 塞到陣列
+                array_push($gamelist, $name);
 
-                // 塞到娛樂城(資料夾名稱)
+                // 組合 { "資料夾名稱":[圖片名稱,圖片名稱..] }
                 $output[$dir] = $gamelist;
 
             }

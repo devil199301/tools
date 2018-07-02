@@ -13,6 +13,7 @@ import { CheckboxModule } from 'primeng/checkbox';
 import { InputSwitchModule } from 'primeng/inputswitch';
 import {ListboxModule} from 'primeng/listbox';
 import {InputTextareaModule} from 'primeng/inputtextarea';
+import {SpinnerModule} from 'primeng/spinner';
 
 @NgModule({
   imports: [
@@ -30,7 +31,8 @@ import {InputTextareaModule} from 'primeng/inputtextarea';
     CheckboxModule,
     InputSwitchModule,
     ListboxModule,
-    InputTextareaModule
+    InputTextareaModule,
+    SpinnerModule
   ],
   exports: [
     FormsModule,
@@ -46,7 +48,8 @@ import {InputTextareaModule} from 'primeng/inputtextarea';
     CheckboxModule,
     InputSwitchModule,
     ListboxModule,
-    InputTextareaModule
+    InputTextareaModule,
+    SpinnerModule
   ],
   declarations: []
 })
