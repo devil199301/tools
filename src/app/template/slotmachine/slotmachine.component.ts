@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-
+import { HttpClient } from '@angular/common/http';
 @Component({
   selector: 'app-slotmachine',
   templateUrl: './slotmachine.component.html',
   styleUrls: ['./slotmachine.component.scss']
 })
+
 export class SlotmachineComponent implements OnInit {
 
   // 遊戲click
@@ -28,7 +29,7 @@ export class SlotmachineComponent implements OnInit {
     { name: 'CQ9', click: 'toCq9Html()' },
     { name: 'NE', click: 'toNetentHtml()' },
     { name: 'RT', click: 'toRedTigerHtml()' }
-  ]
+  ];
 
   outputClick = [];
   // 預期放class名稱
@@ -52,10 +53,15 @@ export class SlotmachineComponent implements OnInit {
   templateCode = '';
 
   output = '';
-
-  constructor() { }
+  detail;
+  constructor(private http: HttpClient) { }
 
   ngOnInit() {
+  }
+
+
+  getDirector() {
+    this.http.post<any>('/api/getDirectory.php', null).subscribe((data) => this.detail = data);
   }
 
   clickFunction() {
@@ -65,7 +71,7 @@ export class SlotmachineComponent implements OnInit {
     let gameitemArray = [];
     for (let i = 0; i < this.outputClick.length; i++) {
 
-      if (this.outputClick[i]['gameList'] == undefined) {
+      if (this.outputClick[i]['gameList'] === undefined) {
         alert(this.outputClick[i]['name'] + '沒設定遊戲');
         return;
       }

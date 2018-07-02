@@ -24,8 +24,10 @@
 
         <div>
             <p-button (onClick)="clickFunction()" label="輸出"></p-button>
+            <p-button (onClick)="getDirector()" label="取目錄"></p-button>
         </div>
 
         <textarea [rows]="5" [cols]="30" pInputTextarea [(ngModel)]="output" [hidden]="output==''"></textarea>
+        <textarea [rows]="5" [cols]="30" pInputTextarea [ngModel]="detail |json" [hidden]="detail==''"></textarea>
     </div>
 </div>
