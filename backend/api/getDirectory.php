@@ -3,7 +3,7 @@
 $postdata = file_get_contents("php://input");
 $request = json_decode($postdata);
 
-$path = 'C:\Users\YenChih\Downloads\MZ001-01\slot';
+$path = 'E:\ng6\test\slot';
 
 //print_r(json_encode($request));
 //$path = $request -> $path;
@@ -28,7 +28,7 @@ function getDirList($dir)
             if (is_dir($file) && basename($file) != '.' && basename($file) != '..') {
                 getDirList($file);
             } else if (filename($file) != "." && filename($file) != "..") {
-                
+
                 // 過濾掉檔案副檔名
                 $name = pathinfo($file, PATHINFO_FILENAME);
 

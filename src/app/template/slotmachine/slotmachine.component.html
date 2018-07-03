@@ -1,6 +1,6 @@
 <h1>拉霸機產生器</h1>
 <div class="ui-g">
-    <div class="ui-g-12 ui-md-6 ui-lg-4">
+    <div class="ui-g-12 ui-md-3">
         <p-listbox [options]="clickList" [(ngModel)]="outputClick" multiple="multiple" checkbox="checkbox" optionLabel="name">
             <p-header>
                 <i class="fa fa-gamepad"></i> 娛樂城
@@ -14,25 +14,23 @@
             <p-button class="director-btn" (onClick)="getDirector()" label="取圖片名稱"></p-button>
         </div>
     </div>
-    <div class="ui-g-12 ui-md-6 ui-lg-4">
-        <ul>
+    <div class="ui-g-12 ui-md-5">
+        <ol>
             <li *ngFor="let c of outputClick" style="margin-bottom: 10px;">
                 <h3>{{ c.name }} - <small>{{ c.click }}</small> </h3>
                 <h4>遊戲名稱：</h4>
-                <input type="text" pInputText [(ngModel)]="c.gameList" />
+                <input type="text" class="gamelist" pInputText [(ngModel)]="c.gameList" />
             </li>
-        </ul>
+        </ol>
     </div>
-    <div class="ui-g-12 ui-md-5 ui-md-2 ui-lg-4">
+    <div class="ui-g-12 ui-md-4">
         <h3>要圖片div嗎?</h3>
         <p-inputSwitch [(ngModel)]="div"></p-inputSwitch>
         <h3>要文字P嗎?</h3>
         <p-inputSwitch [(ngModel)]="text"></p-inputSwitch>
-
         <div>
             <p-button (onClick)="clickFunction()" label="輸出"></p-button>
         </div>
-
         <textarea [rows]="30" [cols]="50" pInputTextarea [(ngModel)]="output" [hidden]="output==''"></textarea>
     </div>
 </div>

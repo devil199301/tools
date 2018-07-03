@@ -1,7 +1,15 @@
 h1 {
-    margin-bottom: 20px;
+  margin-bottom: 20px;
 }
 
-.director-btn {
+.ui-g {
+  width: 1000px;
+
+  .director-btn {
     margin-top: 15px;
+  }
+
+  input.gamelist{
+    width: 100%;
+  }
 }
