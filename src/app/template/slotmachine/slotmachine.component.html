@@ -16,10 +16,15 @@
     </div>
     <div class="ui-g-12 ui-md-5">
         <ol>
-            <li *ngFor="let c of outputClick" style="margin-bottom: 10px;">
-                <h3>{{ c.name }} - <small>{{ c.click }}</small> </h3>
+            <li class="gamedetail" *ngFor="let c of outputClick; index as i" style="margin-bottom: 10px;">
+                <h3><span>{{ c.name }} </span>- <small>{{ c.defaultClick }}</small> </h3>
                 <h4>遊戲名稱：</h4>
                 <input type="text" class="gamelist" pInputText [(ngModel)]="c.gameList" />
+                <div [hidden]="c.gameList===undefined">
+                    <label>click調整??</label>
+                    <p-inputSwitch onLabel="Yes" offLabel="No" (onChange)="customChange($event,i)" [(ngModel)]="c.custom" [disabled]="c.gameList===undefined"></p-inputSwitch>
+                    <input [hidden]="c.custom===false" type="text" class="gamelist" pInputText [(ngModel)]="c.customClick" />
+                </div>
             </li>
         </ol>
     </div>

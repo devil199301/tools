@@ -26,11 +26,11 @@ export class GenerateComponent implements OnInit {
   buttonClick(actionType): void {
 
     this.status = true;
-    this.changeMsgs('info','處理中');
+    this.changeMsgs('info', '處理中');
 
     if (actionType === 'selectDelete' && this.path === undefined) {
       this.status = false;
-      this.changeMsgs('error','路徑不可為空')
+      this.changeMsgs('error', '路徑不可為空');
     } else if (actionType === 'selectDelete' && this.path !== undefined) {
       this.params.path = this.path;
     };
@@ -45,7 +45,7 @@ export class GenerateComponent implements OnInit {
       .subscribe(
         (data) => {
           this.status = false;
-          this.changeMsgs('success',data.msg)
+          this.changeMsgs('success', data.msg);
         });
   }
 
