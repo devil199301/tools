@@ -17,118 +17,142 @@ Mobile 主線檔 主線檔 資料夾名稱必須為 GPK.Web.Mobile
 $postdata = file_get_contents("php://input");
 $request = json_decode($postdata);
 
-print_r($request);
 
 $action = $request->action; //動作 (建立、還原)
-$site_code = $request->site_code; //站台代號
 $site_type = $request->site_type; //站台類型 (Portal, Mobile)
 $source_location = $request->originalFile; // 主線放置地方
-$target_location= $request->target; //產生檔案目標路徑 
+$target_location = $request->target; //產生檔案目標路徑
 $theme_location = $request->vsts; // 版控路徑
-
 $target_file = $target_location . "GPK.Web." . $site_type; //目標檔案文件夾
-$theme_site = $theme_location . $site_type . "/" . $site_code . "." . $site_type; //該站 theme 資料夾
 
 if ($action == "generate" || $action == "recover") {
-    if ($site_code == "") {
-        print_r(json_encode(array(
-            "code" => 101,
-            "msg" => "缺少欄位",
-        )));
-    }
+  $site_code = $request->site_code;
+  $theme_site = $theme_location . $site_type . "\\" . $site_code . "." . $site_type; //該站 theme 資料夾
+  if ($site_code == "") {
+    print_r(json_encode(array(
+      "status" => "warn",
+      "msg" => "缺少欄位",
+    )));
+  }
 }
 
 switch ($action) {
-    case 'generate':
-        smartCopy($source_location . "GPK.Web." . $site_type, $target_file);
-        smartCopy($theme_site, $target_file);
+  case 'generate':
+    if (!is_dir($theme_site)) {
+      print_r(json_encode(array(
+        "status" => "warn",
+        "msg" => "版控沒資料"
+      )));
+      return;
+    }
+    if (is_dir($target_file)) {
+      deleteDirectory($target_file);
+      deleteDirectory($target_file . ".Backup");
+    }
+    smartCopy($source_location . "GPK.Web." . $site_type, $target_file);
+    smartCopy($theme_site, $target_file);
 
-        print_r(json_encode(array(
-            "code" => 100,
-            "msg" => "已建立 " . $target_file,
-        )));
-        break;
+    print_r(json_encode(array(
+      "status" => "success",
+      "msg" => "已建立 " . $target_file,
+    )));
+    break;
 
-    case 'recover':
-        smartCopy($target_file . "/dist", $theme_site);
-        print_r(json_encode(array(
-            "code" => 100,
-            "msg" => "已從 " . $target_file . "/dist 覆蓋至 " . $theme_site,
-        )));
-        break;
+  case 'recover':
+    if (!is_dir($theme_site)) {
+      print_r(json_encode(array(
+        "status" => "warn",
+        "msg" => "版控沒資料"
+      )));
+      return;
+    }
+    smartCopy($target_file . "\dist", $theme_site);
+    print_r(json_encode(array(
+      "status" => "success",
+      "msg" => "已從 " . $target_file . "\dist 覆蓋至 " . $theme_site,
+    )));
+    break;
 
-    case 'newProject':
-        smartCopy($source_location . "GPK.Web." . $site_type, $target_file);
-        print_r(json_encode(array(
-            "code" => 100,
-            "msg" => "已建立空專案 ",
-        )));
-        break;
+  case 'newProject':
+    if (is_dir($target_file)) {
+      print_r(json_encode(array(
+        "status" => "warn",
+        "msg" => "已有專案 ",
+      )));
+      smartCopy($source_location . "GPK.Web." . $site_type, $target_file);
+    } else {
+      smartCopy($source_location . "GPK.Web." . $site_type, $target_file);
+    }
+    print_r(json_encode(array(
+      "status" => "success",
+      "msg" => "已建立新專案 ",
+    )));
+    break;
 
-    case 'selectDelete':
-        $path = $request->path; //  指定路徑
-        deleteDirectory($path);
-        print_r(json_encode(array(
-            "code" => 100,
-            "msg" => "已刪除 " . $path,
-        )));
-        break;
+  case 'selectDelete':
+    $path = $request->path; //  指定路徑
+    deleteDirectory($path);
+    print_r(json_encode(array(
+      "status" => "success",
+      "msg" => "已刪除 " . $path,
+    )));
+    break;
 
-    case 'delete':
-        deleteDirectory($target_location . "/GPK.Web." . $site_type);
-        deleteDirectory($target_location . "/GPK.Web." . $site_type . ".Backup");
-        print_r(json_encode(array(
-            "code" => 100,
-            "msg" => "已刪除 " . $target_file,
-        )));
-        break;
+  case 'delete':
+    deleteDirectory($target_location . "\GPK.Web." . $site_type);
+    deleteDirectory($target_location . "\GPK.Web." . $site_type . ".Backup");
+    print_r(json_encode(array(
+      "status" => "success",
+      "msg" => "已刪除 " . $target_file,
+    )));
+    break;
 
     // 刪除
-    case 'delete':
-        $deleteType = $request->deleteType;
+  case 'delete':
+    $deleteType = $request->deleteType;
 
-        if ($deleteType == 'custom') {
-            $deletePath = $request->customPath;
-            $target_location = $deletePath;
-        }
+    if ($deleteType == 'custom') {
+      $deletePath = $request->customPath;
+      $target_location = $deletePath;
+    }
 
-        deleteDirectory($target_location . "/GPK.Web." . $site_type);
-        deleteDirectory($target_location . "/GPK.Web." . $site_type . ".Backup");
-        print_r(json_encode(array(
-            "code" => 100,
-            "msg" => "已刪除 " . $target_file,
-        )));
-        break;
-    default:
+    deleteDirectory($target_location . "/GPK.Web." . $site_type);
+    deleteDirectory($target_location . "/GPK.Web." . $site_type . ".Backup");
+    print_r(json_encode(array(
+      "status" => "success",
+      "msg" => "已刪除 " . $target_file,
+    )));
+    break;
+  default:
         # code...
-        break;
+    break;
 }
 
 function deleteDirectory($dir)
 {
-    if (!file_exists($dir)) {
-        return true;
+  if (!file_exists($dir)) {
+    return true;
+  }
+
+  if (!is_dir($dir) || is_link($dir)) {
+    return unlink($dir);
+  }
+
+  foreach (scandir($dir) as $item) {
+    if ($item == '.' || $item == '..') {
+      continue;
     }
 
-    if (!is_dir($dir) || is_link($dir)) {
-        return unlink($dir);
+    if (!deleteDirectory($dir . "/" . $item)) {
+      chmod($dir . "/" . $item, 0777);
+
+      if (!deleteDirectory($dir . "/" . $item)) {
+        return false;
+      }
     }
+  }
 
-    foreach (scandir($dir) as $item) {
-        if ($item == '.' || $item == '..') {
-            continue;
-        }
-
-        if (!deleteDirectory($dir . "/" . $item)) {
-            chmod($dir . "/" . $item, 0777);
-
-            if (!deleteDirectory($dir . "/" . $item)) {
-                return false;
-            }
-        }
-    }
-
-    return rmdir($dir);
+  return rmdir($dir);
 }
 
 /**
@@ -154,58 +178,58 @@ function deleteDirectory($dir)
  */
 function smartCopy($source, $dest, $options = array('folderPermission' => 0755, 'filePermission' => 0755))
 {
-    $result = false;
+  $result = false;
 
-    if (is_file($source)) {
-        if ($dest[strlen($dest) - 1] == '/') {
-            if (!file_exists($dest)) {
-                cmfcDirectory::makeAll($dest, $options['folderPermission'], true);
-            }
-            $__dest = $dest . "/" . basename($source);
-        } else {
-            $__dest = $dest;
-        }
-        $result = copy($source, $__dest);
-        chmod($__dest, $options['filePermission']);
-
-    } elseif (is_dir($source)) {
-        if ($dest[strlen($dest) - 1] == '/') {
-            if ($source[strlen($source) - 1] == '/') {
-                //Copy only contents
-            } else {
-                //Change parent itself and its contents
-                $dest = $dest . basename($source);
-                @mkdir($dest);
-                chmod($dest, $options['filePermission']);
-            }
-        } else {
-            if ($source[strlen($source) - 1] == '/') {
-                //Copy parent directory with new name and all its content
-                @mkdir($dest, $options['folderPermission']);
-                chmod($dest, $options['filePermission']);
-            } else {
-                //Copy parent directory with new name and all its content
-                @mkdir($dest, $options['folderPermission']);
-                chmod($dest, $options['filePermission']);
-            }
-        }
-
-        $dirHandle = opendir($source);
-        while ($file = readdir($dirHandle)) {
-            if ($file != "." && $file != "..") {
-                if (!is_dir($source . "/" . $file)) {
-                    $__dest = $dest . "/" . $file;
-                } else {
-                    $__dest = $dest . "/" . $file;
-                }
-                //echo "$source/$file ||| $__dest<br />";
-                $result = smartCopy($source . "/" . $file, $__dest, $options);
-            }
-        }
-        closedir($dirHandle);
-
+  if (is_file($source)) {
+    if ($dest[strlen($dest) - 1] == '/') {
+      if (!file_exists($dest)) {
+        cmfcDirectory::makeAll($dest, $options['folderPermission'], true);
+      }
+      $__dest = $dest . "/" . basename($source);
     } else {
-        $result = false;
+      $__dest = $dest;
     }
-    return $result;
+    $result = copy($source, $__dest);
+    chmod($__dest, $options['filePermission']);
+
+  } elseif (is_dir($source)) {
+    if ($dest[strlen($dest) - 1] == '/') {
+      if ($source[strlen($source) - 1] == '/') {
+                //Copy only contents
+      } else {
+                //Change parent itself and its contents
+        $dest = $dest . basename($source);
+        @mkdir($dest);
+        chmod($dest, $options['filePermission']);
+      }
+    } else {
+      if ($source[strlen($source) - 1] == '/') {
+                //Copy parent directory with new name and all its content
+        @mkdir($dest, $options['folderPermission']);
+        chmod($dest, $options['filePermission']);
+      } else {
+                //Copy parent directory with new name and all its content
+        @mkdir($dest, $options['folderPermission']);
+        chmod($dest, $options['filePermission']);
+      }
+    }
+
+    $dirHandle = opendir($source);
+    while ($file = readdir($dirHandle)) {
+      if ($file != "." && $file != "..") {
+        if (!is_dir($source . "/" . $file)) {
+          $__dest = $dest . "/" . $file;
+        } else {
+          $__dest = $dest . "/" . $file;
+        }
+                //echo "$source/$file ||| $__dest<br />";
+        $result = smartCopy($source . "/" . $file, $__dest, $options);
+      }
+    }
+    closedir($dirHandle);
+
+  } else {
+    $result = false;
+  }
+  return $result;
 }

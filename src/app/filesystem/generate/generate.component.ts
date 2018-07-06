@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FilesystemService, fileAction } from '../filesystem.service';
+import { FilesystemService, fileAction, fileSetting } from '../filesystem.service';
 import { Message } from 'primeng/components/common/api';
 
 @Component({
@@ -16,24 +16,20 @@ export class GenerateComponent implements OnInit {
   path: string;
   status: boolean;
   msgs: Message[] = [];
+  fileSetting: fileSetting;
 
   constructor(private filesystemService: FilesystemService) {
   }
 
   ngOnInit() {
+    // 先取設定回來
+    this.fileSetting = this.filesystemService.getfileSetting();
   }
 
   buttonClick(actionType): void {
 
     this.status = true;
     this.changeMsgs('info', '處理中');
-
-    if (actionType === 'selectDelete' && this.path === undefined) {
-      this.status = false;
-      this.changeMsgs('error', '路徑不可為空');
-    } else if (actionType === 'selectDelete' && this.path !== undefined) {
-      this.params.path = this.path;
-    };
 
     this.params = {
       'action': actionType,
@@ -44,8 +40,13 @@ export class GenerateComponent implements OnInit {
     this.filesystemService.processingFile(this.params)
       .subscribe(
         (data) => {
+          const resp = data;
           this.status = false;
-          this.changeMsgs('success', data.msg);
+          this.changeMsgs(resp.status, data.msg);
+        }, (error) => {
+          this.status = false;
+          this.changeMsgs('error', '出錯勒');
+          console.log(error);
         });
   }
 

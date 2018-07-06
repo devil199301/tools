@@ -7,7 +7,7 @@
     <a #filesystem [class.active-menuitem]="'filesystem' == activeMenuId" (click)="activeMenuId = (activeMenuId === 'filesystem' ? null : 'filesystem')">檔案系統</a>
     <div [ngClass]="{'submenushow': ('filesystem' == activeMenuId), 'submenuhide': ('filesystem' != activeMenuId)}">
       <a [routerLink]="['/Generate']">● 產生檔案</a>
-      <a [routerLink]="['/Deleted']">● 刪除檔案</a>
+      <!-- <a [routerLink]="['/Deleted']">● 刪除檔案</a> -->
       <a [routerLink]="['/Setting']">● 設定</a>
     </div>
   </li>

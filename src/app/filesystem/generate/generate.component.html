@@ -17,7 +17,3 @@
 <p-button (onClick)="buttonClick('delete')" label="刪除網站檔案" [disabled]="status"></p-button>
 
 <p-messages [(value)]="msgs"></p-messages>
-
-<h3>刪除指定路徑</h3>
-<input id="input" type="text" size="30" pInputText [(ngModel)]="path">
-<p-button (onClick)="buttonClick('selectDelete')" label="刪除" [disabled]="!path||status"></p-button>

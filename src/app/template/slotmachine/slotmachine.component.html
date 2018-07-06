@@ -11,7 +11,12 @@
             <p-spinner size="5" [(ngModel)]="gamelistnum"></p-spinner>
         </div>
         <div>
+            <h4>圖片來源</h4>
+            <input pInputText type="text" [(ngModel)]="imgPath" />
             <p-button class="director-btn" (onClick)="getDirector()" label="取圖片名稱"></p-button>
+            <h4>輸出路徑</h4>
+            <input pInputText type="text" [(ngModel)]="outPath" />
+            <p-button class="director-btn" (onClick)="getDirector(true)" label="取圖片名稱+搬家"></p-button>
         </div>
     </div>
     <div class="ui-g-12 ui-md-5">

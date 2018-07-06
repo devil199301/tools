@@ -42,7 +42,9 @@ export class SlotmachineComponent implements OnInit {
 
   text = false;
 
-  imgPath = 'C:/Users/YenChih/Downloads/MZ001-01/slot';
+  imgPath = 'E:/ng6/test/slot/';
+
+  outPath = 'E:/ng6/test/321/';
 
   templateCode = '';
 
@@ -53,8 +55,16 @@ export class SlotmachineComponent implements OnInit {
   ngOnInit() {
   }
 
-  getDirector() {
-    this.http.post<any>('/api/getDirectory.php', { 'path': 'D:/MZ001-01/slot' })
+  getDirector(move?) {
+
+    let tomove, outpath;
+
+    if (move) {
+      tomove = true;
+      outpath = this.outPath;
+    }
+
+    this.http.post<any>('/api/getDirectory.php', { 'path': this.imgPath, 'tomove': tomove, 'outpath': outpath })
       .subscribe(
         (data) => {
           for (let i = 0; i < this.outputClick.length; i++) {
@@ -81,6 +91,11 @@ export class SlotmachineComponent implements OnInit {
 
     for (let i = 0; i < this.outputClick.length; i++) {
 
+      // 遊戲名稱 input string to array
+      if (typeof (this.outputClick[i]['gameList']) === 'string') {
+        this.outputClick[i]['gameList'] = (this.outputClick[i]['gameList']).split(',');
+      }
+
       if (this.outputClick[i]['gameList'] === undefined) {
         alert(this.outputClick[i]['name'] + '沒設定遊戲');
         return;
@@ -94,8 +109,19 @@ export class SlotmachineComponent implements OnInit {
       gameitemArray = this.outputClick[i]['gameList'];
 
       for (let j = 0; j < gameitemArray.length; j++) {
-        console.log(this.outputClick[i]['customClick'],this.clickList[i]['defaultClick']);
-        const clickList = this.outputClick[i]['custom'] === true ? this.outputClick[i]['customClick'] : this.clickList[i]['defaultClick'];
+
+        let clickList = []; // 放click用的
+
+        // 假如有自訂click，就拿自訂的，且把input string to array
+        if (this.outputClick[i]['custom'] && typeof (this.outputClick[i]['customClick']) === 'string') {
+          this.outputClick[i]['customClick'] = (this.outputClick[i]['customClick']).split(',');
+          clickList = this.outputClick[i]['customClick'];
+        } else {
+          clickList[j] = this.clickList[i]['defaultClick'];
+        }
+
+        console.log(this.outputClick[i]['customClick'], this.clickList[i]['defaultClick']);
+
         if (this.div && this.text) {
           // tslint:disable-next-line:max-line-length
           li = li + '<li class="' + this.outputClick[i]['name'] + (j + 1) + '" ng-click="' + clickList[j] + '"><div class="pic"></div><p class="text">' + gameitemArray[j] + '</p></li>';

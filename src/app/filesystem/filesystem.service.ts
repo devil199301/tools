@@ -40,6 +40,7 @@ export class FilesystemService {
   }
 
   processingFile(params) {
+    params = Object.assign(params, this.fileSetting);
     return this.http.post<any>('/api/theme_file.php', params);
   }
 

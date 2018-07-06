@@ -4,18 +4,25 @@ $postdata = file_get_contents("php://input");
 $request = json_decode($postdata);
 
 $path = $request->path;
-$outputpath = 'D:/MZ001-01/opt/';
+$tomove = $request->tomove;
 
+// 有要移動位置才宣告路徑
+if ($tomove) {
+    $outputpath = $request->outpath;
+}
+
+// 組合 {"資料夾":[圖片,圖片...]}
 $gamedetail = array();
+
+// 觸發
 getDirList($path);
 
+// 輸出物件
 print_r(json_encode($gamedetail));
 
 function getDirList($dir)
 {
-    global $gamedetail;
-    global $outputpath;
-    global $path;
+    global $gamedetail, $outputpath, $path, $tomove;
     $lobbygame = array();
     $gamelist = array();
     $i = 1;
@@ -37,18 +44,20 @@ function getDirList($dir)
                 // 組合 { "資料夾名稱":[圖片名稱,圖片名稱..] }
                 $gamedetail[$dir] = $gamelist;
 
-                // 新的資料夾路徑
-                $folder = $outputpath . $dir;
+                if ($tomove) {
+                    // 新的資料夾路徑
+                    $folder = $outputpath . $dir;
 
-                // 判斷有無資料夾，沒有就建
-                if (!is_dir($folder)) {
-                    mkdir($folder, 0700);
+                    // 判斷有無資料夾，沒有就建
+                    if (!is_dir($folder)) {
+                        mkdir($folder, 0700);
+                    }
+                    // 複製檔案到指定路徑 + 改檔名 $i
+                    copy($path . '/' . $dir . '/' . $file, $folder . '/' . $i . '.' . $extension);
+                    // 主要用於檔名 1.2.3.4 ...
+                    $i++;
+
                 }
-                // 複製檔案到指定路徑 + 改檔名 $i
-                copy($path . '/' . $dir . '/' . $file, $folder . '/' . $i . '.' . $extension);
-                // 主要用於檔名 1.2.3.4 ... 
-                $i++;
-
             }
         }
         chdir("../");
