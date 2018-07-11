@@ -46,10 +46,8 @@ export class SlotmachineComponent implements OnInit {
 
   outPath = 'E:/ng6/test/321/';
 
-  templateCode = '';
-
   output = '';
-  detail;
+
   constructor(private http: HttpClient) { }
 
   ngOnInit() {
@@ -57,14 +55,22 @@ export class SlotmachineComponent implements OnInit {
 
   getDirector(move?) {
 
-    let tomove, outpath;
+    let tomove = false;
+    let outpath = '';
+    let params;
 
     if (move) {
       tomove = true;
       outpath = this.outPath;
     }
 
-    this.http.post<any>('/api/getDirectory.php', { 'path': this.imgPath, 'tomove': tomove, 'outpath': outpath })
+    params = {
+      'path': this.imgPath,
+      'tomove': tomove,
+      'outpath': outpath
+    };
+
+    this.http.post<any>('/api/getDirectory.php', params)
       .subscribe(
         (data) => {
           for (let i = 0; i < this.outputClick.length; i++) {
@@ -119,8 +125,6 @@ export class SlotmachineComponent implements OnInit {
         } else {
           clickList[j] = this.clickList[i]['defaultClick'];
         }
-
-        console.log(this.outputClick[i]['customClick'], this.clickList[i]['defaultClick']);
 
         if (this.div && this.text) {
           // tslint:disable-next-line:max-line-length
