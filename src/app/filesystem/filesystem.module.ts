@@ -12,7 +12,7 @@ import { DeletedComponent } from './deleted/deleted.component';
     SharedModule
   ],
   declarations: [GenerateComponent, SettingComponent, DeletedComponent],
-  exports: [GenerateComponent],
+  exports: [],
   providers: [FilesystemService]
 })
 export class FilesystemModule { }

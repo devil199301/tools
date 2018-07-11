@@ -7,6 +7,7 @@ import { FilesystemModule } from './filesystem/filesystem.module';
 import { SharedModule } from './shared/shared.module';
 import { LayoutModule } from './layout/layout.module';
 import { TemplateModule } from './template/template.module';
+import { TrelloModule } from './trello/trello.module';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { TemplateModule } from './template/template.module';
     SharedModule,
     LayoutModule,
     FilesystemModule,
-    TemplateModule
+    TemplateModule,
+    TrelloModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -6,6 +6,7 @@ import { HelloComponent } from './layout/hello/hello.component';
 import { SettingComponent } from './filesystem/setting/setting.component';
 import { DeletedComponent } from './filesystem/deleted/deleted.component';
 import { SlotmachineComponent } from './template/slotmachine/slotmachine.component';
+import { ListComponent } from './trello/list/list.component';
 
 const routes: Routes = [
   {
@@ -32,6 +33,9 @@ const routes: Routes = [
       {
         path: 'slottemplate',
         component: SlotmachineComponent
+      }, {
+        path: 'trello',
+        component: ListComponent
       },
       {
         path: 'hello',
