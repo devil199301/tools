@@ -14,6 +14,7 @@ import { InputSwitchModule } from 'primeng/inputswitch';
 import {ListboxModule} from 'primeng/listbox';
 import {InputTextareaModule} from 'primeng/inputtextarea';
 import {SpinnerModule} from 'primeng/spinner';
+import {CardModule} from 'primeng/card';
 
 @NgModule({
   imports: [
@@ -32,7 +33,8 @@ import {SpinnerModule} from 'primeng/spinner';
     InputSwitchModule,
     ListboxModule,
     InputTextareaModule,
-    SpinnerModule
+    SpinnerModule,
+    CardModule
   ],
   exports: [
     FormsModule,
@@ -49,7 +51,8 @@ import {SpinnerModule} from 'primeng/spinner';
     InputSwitchModule,
     ListboxModule,
     InputTextareaModule,
-    SpinnerModule
+    SpinnerModule,
+    CardModule
   ],
   declarations: []
 })

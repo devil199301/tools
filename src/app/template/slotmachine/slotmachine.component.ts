@@ -48,7 +48,7 @@ export class SlotmachineComponent implements OnInit {
 
   output = '';
 
-  constructor(private http: HttpClient) { }
+constructor(private http: HttpClient) { }
 
   ngOnInit() {
   }
@@ -82,10 +82,11 @@ export class SlotmachineComponent implements OnInit {
   }
 
   customChange(e, i) {
+    console.log(i);
     if (e.checked) {
-      this.clickList[i]['customClick'] = [];
-      for (let j = 1; j < this.clickList[i]['gameList'].length; j++) {
-        this.clickList[i]['customClick'].push(this.clickList[i]['defaultClick']);
+      this.outputClick[i]['customClick'] = [];
+      for (let j = 1; j < this.outputClick[i]['gameList'].length; j++) {
+        this.outputClick[i]['customClick'].push(this.outputClick[i]['defaultClick']);
       }
     }
   }
@@ -96,7 +97,6 @@ export class SlotmachineComponent implements OnInit {
     let gameitemArray = [];
 
     for (let i = 0; i < this.outputClick.length; i++) {
-
       // 遊戲名稱 input string to array
       if (typeof (this.outputClick[i]['gameList']) === 'string') {
         this.outputClick[i]['gameList'] = (this.outputClick[i]['gameList']).split(',');
@@ -116,33 +116,34 @@ export class SlotmachineComponent implements OnInit {
 
       for (let j = 0; j < gameitemArray.length; j++) {
 
-        let clickList = []; // 放click用的
+        let clickList:Array<string>; // 放click用的
 
         // 假如有自訂click，就拿自訂的，且把input string to array
         if (this.outputClick[i]['custom'] && typeof (this.outputClick[i]['customClick']) === 'string') {
           this.outputClick[i]['customClick'] = (this.outputClick[i]['customClick']).split(',');
-          clickList = this.outputClick[i]['customClick'];
+          console.log(this.outputClick[i]['customClick']);
+          clickList[j] = this.outputClick[i]['customClick'];
         } else {
-          clickList[j] = this.clickList[i]['defaultClick'];
+          clickList[j] = this.outputClick[i]['defaultClick'];
         }
-
+        console.log(clickList);
         if (this.div && this.text) {
           // tslint:disable-next-line:max-line-length
-          li = li + '<li class="' + this.outputClick[i]['name'] + (j + 1) + '" ng-click="' + clickList[j] + '"><div class="pic"></div><p class="text">' + gameitemArray[j] + '</p></li>';
+          li = `${li}<li class="${this.outputClick[i]['name'] + (j + 1)}" ng-click="${clickList[j]}"><div class="pic"></div><p class="text">${gameitemArray[j]}</p></li>\n`;
         } else if (this.div) {
           // tslint:disable-next-line:max-line-length
-          li = li + '<li class="' + this.outputClick[i]['name'] + (j + 1) + '" ng-click="' + clickList[j] + '"><div class="pic"></div>' + gameitemArray[j] + '</li>';
+          li = `${li}<li class="${this.outputClick[i]['name'] + (j + 1)}" ng-click="${clickList[j]}"><div class="pic"></div>${gameitemArray[j]}</li>\n`;
         } else if (this.text) {
           // tslint:disable-next-line:max-line-length
-          li = li + '<li class="' + this.outputClick[i]['name'] + (j + 1) + '" ng-click="' + clickList[j] + '"><p class="text">' + gameitemArray[j] + '</p></li>';
+          li = `${li}<li class="${this.outputClick[i]['name'] + (j + 1)}" ng-click="${clickList[j]}"><p class="text">${gameitemArray[j]}</p></li>\n`;
         } else {
           // tslint:disable-next-line:max-line-length
-          li = li + '<li class="' + this.outputClick[i]['name'] + (j + 1) + '" ng-click="' + clickList[j] + '">' + gameitemArray[j] + '</li>';
+          li = `${li}<li class="${this.outputClick[i]['name'] + (j + 1)}" ng-click="${clickList[j]}">${gameitemArray[j]}</li>\n`;
         }
       }
       // tslint:disable-next-line:max-line-length
-      ul = ul + '<ul class="gameitem ' + this.outputClick[i]['name'] + 'game" ng-show="show==\'' + this.outputClick[i]['name'] + '\'" ng-cloak>' + li + '</ul>';
-      li = '';
+      ul = `${ul}<ul class="gameitem ${this.outputClick[i]['name']}game" ng-show="show=='${this.outputClick[i]['name']}'" ng-cloak>\n${li}</ul>\n`;
+      li = ``;
     }
 
     this.output = ul;

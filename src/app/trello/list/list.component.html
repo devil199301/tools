@@ -2,16 +2,27 @@
 <!-- <pre>
 {{Board|json}}
 </pre> -->
-<ul>
-    <li *ngFor="let c of Board" (click)="getBoardDetail(c.id)">{{c.name}} - {{c.id}}</li>
-</ul>
+<ol>
+  <li *ngFor="let c of Board" (click)="getBoardDetail(c.id)">{{c.name}} - {{c.id}}</li>
+</ol>
 
-<ul>
+<ol>
   <li *ngFor="let c of BoardDetail" (click)="getCardsList(c.id)">{{c.name}} - {{c.id}}</li>
-</ul>
+</ol>
 
-<ul>
-  <li *ngFor="let c of Cards" (click)="getCardDetail(c.id)">{{c.name}} - {{c.id}}</li>
-</ul>
+<ol>
+  <li *ngFor="let c of Cards" (click)="getAttachments(c.id)">{{c.name}} - {{c.id}}</li>
+</ol>
+
+<p-card *ngFor="let c of Cards" title="{{c.name}}" subtitle="Subtitle" [style]="{width: '360px'}" styleClass="ui-card-shadow">
+  <p-header>
+  </p-header>
+  <div>{{c.desc}}</div>
+  <p-footer>
+    <!-- <button pButton type="button" label="Save" icon="pi pi-check" style="margin-right: .25em"></button>
+    <button pButton type="button" label="Cancel" icon="pi pi-times" class="ui-button-secondary"></button> -->
+  </p-footer>
+</p-card>
 
 <button (click)="getMembers()">取會員</button>
+
