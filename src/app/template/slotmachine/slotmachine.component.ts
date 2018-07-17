@@ -48,7 +48,7 @@ export class SlotmachineComponent implements OnInit {
 
   output = '';
 
-constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) { }
 
   ngOnInit() {
   }
@@ -82,10 +82,9 @@ constructor(private http: HttpClient) { }
   }
 
   customChange(e, i) {
-    console.log(i);
-    if (e.checked) {
+    if (e.checked && this.outputClick[i]['customClick'] === undefined) {
       this.outputClick[i]['customClick'] = [];
-      for (let j = 1; j < this.outputClick[i]['gameList'].length; j++) {
+      for (let j = 1; j <= this.outputClick[i]['gameList'].length; j++) {
         this.outputClick[i]['customClick'].push(this.outputClick[i]['defaultClick']);
       }
     }
@@ -97,6 +96,7 @@ constructor(private http: HttpClient) { }
     let gameitemArray = [];
 
     for (let i = 0; i < this.outputClick.length; i++) {
+
       // 遊戲名稱 input string to array
       if (typeof (this.outputClick[i]['gameList']) === 'string') {
         this.outputClick[i]['gameList'] = (this.outputClick[i]['gameList']).split(',');
@@ -116,17 +116,14 @@ constructor(private http: HttpClient) { }
 
       for (let j = 0; j < gameitemArray.length; j++) {
 
-        let clickList:Array<string>; // 放click用的
+        let clickList = []; // 放click用的
 
         // 假如有自訂click，就拿自訂的，且把input string to array
         if (this.outputClick[i]['custom'] && typeof (this.outputClick[i]['customClick']) === 'string') {
-          this.outputClick[i]['customClick'] = (this.outputClick[i]['customClick']).split(',');
-          console.log(this.outputClick[i]['customClick']);
-          clickList[j] = this.outputClick[i]['customClick'];
+          clickList = this.outputClick[i]['customClick'].split(',');
         } else {
           clickList[j] = this.outputClick[i]['defaultClick'];
         }
-        console.log(clickList);
         if (this.div && this.text) {
           // tslint:disable-next-line:max-line-length
           li = `${li}<li class="${this.outputClick[i]['name'] + (j + 1)}" ng-click="${clickList[j]}"><div class="pic"></div><p class="text">${gameitemArray[j]}</p></li>\n`;
