@@ -18,7 +18,7 @@ export class ListComponent implements OnInit {
 
   ngOnInit() {
     // 先取權限
-    this.trelloService.getauthorize();
+    //   this.trelloService.getauthorize();
   }
 
   // 取得看板

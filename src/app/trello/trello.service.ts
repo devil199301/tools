@@ -17,7 +17,7 @@ export class TrelloService {
         write: 'true'
       },
       expiration: 'never',
-      success: () => console.log(localStorage.trello_token),
+      success: () => console.log('success'),
       error: () => console.log('error')
     });
   }
