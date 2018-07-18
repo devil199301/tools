@@ -44,6 +44,9 @@
     <div>
       <p-button (onClick)="clickFunction()" label="輸出"></p-button>
     </div>
+    <h3 [hidden]="output==''">HTML</h3>
     <textarea [rows]="15" [cols]="50" pInputTextarea [(ngModel)]="output" [hidden]="output==''"></textarea>
+    <h3 [hidden]="outputCss==''">CSS</h3>
+    <textarea [rows]="15" [cols]="50" pInputTextarea [(ngModel)]="outputCss" [hidden]="outputCss==''"></textarea>
   </div>
 </div>

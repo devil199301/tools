@@ -34,26 +34,57 @@ export class SlotmachineComponent implements OnInit {
     { name: 'png', defaultClick: 'toPngHtml()', custom: false }
   ];
 
+
+  /**
+   * 要產template的陣列
+   */
   outputClick = [];
 
+  /**
+   * 遊戲數量，驗證數量用的
+   */
   gamelistnum = 8;
 
+  /**
+   * template element li > <div class="pic">
+   */
   div = false;
 
+  /**
+   * template element li > <p class="text">
+   */
   text = false;
 
+  /**
+   * 圖片來源
+   */
   imgPath = 'E:/ng6/test/slot/';
 
+  /**
+   * 圖片輸出位置
+   */
   outPath = 'E:/ng6/test/321/';
 
+  /**
+   * 輸出template的字串
+   */
   output = '';
+
+  /**
+ * 輸出template css的字串
+ */
+  outputCss = '';
 
   constructor(private http: HttpClient) { }
 
   ngOnInit() {
   }
 
-  getDirector(move?) {
+  /**
+   * 取圖片名稱
+   * @param {*} [move] 只取圖片?或搬到別的路徑+更名
+   */
+  getDirector(move?: boolean) {
 
     let tomove = false;
     let outpath = '';
@@ -81,7 +112,12 @@ export class SlotmachineComponent implements OnInit {
         });
   }
 
-  customChange(e, i) {
+  /**
+   * 自訂義ng-click開關
+   * @param {*} e event
+   * @param {*} i index
+   */
+  customChange(e: any, i: any) {
     if (e.checked && this.outputClick[i]['customClick'] === undefined) {
       this.outputClick[i]['customClick'] = [];
       for (let j = 1; j <= this.outputClick[i]['gameList'].length; j++) {
@@ -90,10 +126,16 @@ export class SlotmachineComponent implements OnInit {
     }
   }
 
+
+  /**
+   * 產生HTMl、CSS
+   */
   clickFunction() {
     let ul = '';
     let li = '';
     let gameitemArray = [];
+
+    let css = '';
 
     for (let i = 0; i < this.outputClick.length; i++) {
 
@@ -114,10 +156,9 @@ export class SlotmachineComponent implements OnInit {
 
       gameitemArray = this.outputClick[i]['gameList'];
 
+      // #region 長HTML
       for (let j = 0; j < gameitemArray.length; j++) {
-
         let clickList = []; // 放click用的
-
         // 假如有自訂click，就拿自訂的，且把input string to array
         if (this.outputClick[i]['custom'] && typeof (this.outputClick[i]['customClick']) === 'string') {
           clickList = this.outputClick[i]['customClick'].split(',');
@@ -126,27 +167,39 @@ export class SlotmachineComponent implements OnInit {
         }
         if (this.div && this.text) {
           // tslint:disable-next-line:max-line-length
-          li = `${li}<li class="${this.outputClick[i]['name'] + (j + 1)}" ng-click="${clickList[j]}"><div class="pic"></div><p class="text">${gameitemArray[j]}</p></li>\n`;
+          li += `<li data-img="${(j + 1)}" ng-click="${clickList[j]}"><div class="pic"></div><p class="text">${gameitemArray[j]}</p></li>\n`;
         } else if (this.div) {
           // tslint:disable-next-line:max-line-length
-          li = `${li}<li class="${this.outputClick[i]['name'] + (j + 1)}" ng-click="${clickList[j]}"><div class="pic"></div>${gameitemArray[j]}</li>\n`;
+          li += `<li data-img="${(j + 1)}" ng-click="${clickList[j]}"><div class="pic"></div>${gameitemArray[j]}</li>\n`;
         } else if (this.text) {
           // tslint:disable-next-line:max-line-length
-          li = `${li}<li class="${this.outputClick[i]['name'] + (j + 1)}" ng-click="${clickList[j]}"><p class="text">${gameitemArray[j]}</p></li>\n`;
+          li += `<li data-img="${(j + 1)}" ng-click="${clickList[j]}"><p class="text">${gameitemArray[j]}</p></li>\n`;
         } else {
           // tslint:disable-next-line:max-line-length
-          li = `${li}<li class="${this.outputClick[i]['name'] + (j + 1)}" ng-click="${clickList[j]}">${gameitemArray[j]}</li>\n`;
+          li += `<li data-img="${(j + 1)}" ng-click="${clickList[j]}">${gameitemArray[j]}</li>\n`;
         }
       }
       // tslint:disable-next-line:max-line-length
-      ul = `${ul}<ul class="gameitem ${this.outputClick[i]['name']}game" ng-show="show=='${this.outputClick[i]['name']}'" ng-cloak>\n${li}</ul>\n`;
+      ul += `<ul class="gameitem ${this.outputClick[i]['name']}game" ng-show="show=='${this.outputClick[i]['name']}'" ng-cloak>\n${li}</ul>\n`;
       li = ``;
+      // #endregion 長HTML
+
+      // #region 長CSS
+      for (let j = 0; j < gameitemArray.length; j++) {
+        if (this.div) {
+          css += `.gameitem.${this.outputClick[i]['name']}game>li[data-img="${(j + 1)}"] div:before {
+            background-image: url('--replace--/${this.outputClick[i]['name']}/${(j + 1)}.png'); \n}\n`;
+        } else {
+          css += `.gameitem.${this.outputClick[i]['name']}game>li[data-img="${(j + 1)}"] {
+            background-image: url('--replace--/${this.outputClick[i]['name']}/${(j + 1)}.png'); \n}\n`;
+        }
+      }
+      // #endregion 長CSS
+
     }
-
     this.output = ul;
-
+    this.outputCss = css;
   }
-
 }
 
 // tslint:disable-next-line:class-name
