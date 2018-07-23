@@ -7,6 +7,7 @@ import { Message } from 'primeng/components/common/api';
   templateUrl: './deleted.component.html',
   styleUrls: ['./deleted.component.scss']
 })
+
 export class DeletedComponent implements OnInit {
 
   fileSetting: fileSetting;

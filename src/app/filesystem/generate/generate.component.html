@@ -1,15 +1,15 @@
-<h3>
-    站代號</h3>
+<h2>檔案系統</h2>
+<h3>站代號</h3>
 <input id="input" type="text" size="30" pInputText [(ngModel)]="site_name">
 
 <h3>類型</h3>
 <div class="ui-g" style="width:250px;margin-bottom:10px">
-    <div class="ui-g-12">
-        <p-radioButton name="group1" value="Portal" label="Portal" [(ngModel)]="site_type" inputId="opt1"></p-radioButton>
-    </div>
-    <div class="ui-g-12">
-        <p-radioButton name="group1" value="Mobile" label="Mobile" [(ngModel)]="site_type" inputId="opt2"></p-radioButton>
-    </div>
+  <div class="ui-g-12">
+    <p-radioButton name="group1" value="Portal" label="Portal" [(ngModel)]="site_type" inputId="opt1"></p-radioButton>
+  </div>
+  <div class="ui-g-12">
+    <p-radioButton name="group1" value="Mobile" label="Mobile" [(ngModel)]="site_type" inputId="opt2"></p-radioButton>
+  </div>
 </div>
 <p-button (onClick)="buttonClick('newProject')" label="建立新專案" [disabled]="status"></p-button>
 <p-button (onClick)="buttonClick('generate')" label="建立網站檔案" [disabled]="!site_name||status"></p-button>

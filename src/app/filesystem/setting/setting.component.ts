@@ -6,6 +6,7 @@ import { FilesystemService, fileSetting } from '../filesystem.service';
   templateUrl: './setting.component.html',
   styleUrls: ['./setting.component.scss']
 })
+
 export class SettingComponent implements OnInit {
 
   fileSetting: fileSetting;

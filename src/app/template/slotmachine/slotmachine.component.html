@@ -1,15 +1,11 @@
-<h1>拉霸機產生器</h1>
+<h2>拉霸機產生器</h2>
 <div class="ui-g">
-  <div class="ui-g-12 ui-md-3">
-    <p-listbox [options]="clickList" [(ngModel)]="outputClick" multiple="multiple" checkbox="checkbox" optionLabel="name">
+  <div class="ui-g-2 ui-md-3 listbox">
+    <p-listbox [options]="clickList" [(ngModel)]="outputClick" multiple="multiple" checkbox="checkbox" optionLabel="name" [style]="{'width':'auto'}">
       <p-header>
         <i class="fa fa-gamepad"></i> 娛樂城
       </p-header>
     </p-listbox>
-    <div>
-      <h4>遊戲數量</h4>
-      <p-spinner size="5" [(ngModel)]="gamelistnum"></p-spinner>
-    </div>
     <div>
       <h4>圖片來源</h4>
       <input pInputText type="text" [(ngModel)]="imgPath" />
@@ -19,9 +15,9 @@
       <p-button class="director-btn" (onClick)="getDirector(true)" label="取圖片名稱+搬家"></p-button>
     </div>
   </div>
-  <div class="ui-g-12 ui-md-5">
-    <ol>
-      <li class="gamedetail" *ngFor="let c of outputClick; let i = index" style="margin-bottom: 10px;">
+  <div class="ui-g-5 ui-md-5">
+    <ol class="gamedetail">
+      <li *ngFor="let c of outputClick; let i = index" style="margin-bottom: 10px;">
         <h3>
           <span>{{ c.name }} </span>-
           <small>{{ c.defaultClick }}</small>
@@ -36,7 +32,7 @@
       </li>
     </ol>
   </div>
-  <div class="ui-g-12 ui-md-4">
+  <div class="ui-g-5 ui-md-4">
     <h3>要圖片div嗎?</h3>
     <p-inputSwitch [(ngModel)]="div"></p-inputSwitch>
     <h3>要文字P嗎?</h3>
@@ -44,9 +40,17 @@
     <div>
       <p-button (onClick)="clickFunction()" label="輸出"></p-button>
     </div>
-    <h3 [hidden]="output==''">HTML</h3>
-    <textarea [rows]="15" [cols]="50" pInputTextarea [(ngModel)]="output" [hidden]="output==''"></textarea>
-    <h3 [hidden]="outputCss==''">CSS</h3>
-    <textarea [rows]="15" [cols]="50" pInputTextarea [(ngModel)]="outputCss" [hidden]="outputCss==''"></textarea>
+    <div class="slotTemp" [hidden]="output==''">
+      <h3>HTML
+        <p-button class="copy-btn" (onClick)="copyButton(slotHtml)" label="複製"></p-button>
+      </h3>
+      <textarea #slotHtml [rows]="15" pInputTextarea [(ngModel)]="output"></textarea>
+    </div>
+    <div class="slotTemp"  [hidden]="outputCss==''">
+      <h3>CSS
+        <p-button class="copy-btn" (onClick)="copyButton(slotCss)" label="複製"></p-button>
+      </h3>
+      <textarea #slotCss [rows]="15" pInputTextarea [(ngModel)]="outputCss"></textarea>
+    </div>
   </div>
 </div>

@@ -3,29 +3,37 @@ h1 {
 }
 
 .ui-g {
-  width: 1000px;
-  p-listbox {
-    text-transform: uppercase;
+  .listbox {
+    max-width: 175px;
+    p-listbox {
+      text-transform: uppercase;
+    }
+    .director-btn {
+      margin-top: 15px;
+    }
+    input {
+      width: 100%;
+    }
   }
-  .director-btn {
-    margin-top: 15px;
-  }
-  h3 span {
-    text-transform: uppercase;
-  }
-  input.gamelist {
-    width: 100%;
-  }
-  .inputSwitch {
-    vertical-align: middle;
+  .gamedetail {
+    padding-left: 25px;
+    h3 span {
+      text-transform: uppercase;
+    }
+    input.gamelist {
+      width: 100%;
+    }
   }
   p-inputswitch {
     display: inline-block;
     vertical-align: middle;
   }
-  .ui-inputtextarea {
-    white-space: pre-wrap;
-    word-wrap: break-word;
-    word-break: break-all;
+  .slotTemp {
+    p-button {
+      margin-left: 10px;
+    }
+    textarea {
+      width: 100%;
+    }
   }
 }

@@ -44,9 +44,14 @@ function getDirList($dir)
                 // 組合 { "資料夾名稱":[圖片名稱,圖片名稱..] }
                 $gamedetail[$dir] = $gamelist;
 
+                 // 判斷有無輸出資料夾，沒有就建
+                 if (!is_dir($outputpath)) {
+                  mkdir($outputpath, 0700);
+              }
+
                 if ($tomove) {
                     // 新的資料夾路徑
-                    $folder = $outputpath . $dir;
+                    $folder = $outputpath .'/'. $dir;
 
                     // 判斷有無資料夾，沒有就建
                     if (!is_dir($folder)) {

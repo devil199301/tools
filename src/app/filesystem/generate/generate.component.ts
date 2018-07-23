@@ -18,8 +18,7 @@ export class GenerateComponent implements OnInit {
   msgs: Message[] = [];
   fileSetting: fileSetting;
 
-  constructor(private filesystemService: FilesystemService) {
-  }
+  constructor(private filesystemService: FilesystemService) {}
 
   ngOnInit() {
     // 先取設定回來
@@ -50,6 +49,11 @@ export class GenerateComponent implements OnInit {
         });
   }
 
+  /**
+   * 顯示訊息
+   * @param severity 狀態
+   * @param summary 訊息
+   */
   changeMsgs(severity, summary): void {
     this.msgs = [];
     this.msgs.push({ severity: severity, summary: summary });
