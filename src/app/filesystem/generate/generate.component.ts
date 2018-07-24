@@ -18,7 +18,7 @@ export class GenerateComponent implements OnInit {
   msgs: Message[] = [];
   fileSetting: fileSetting;
 
-  constructor(private filesystemService: FilesystemService) {}
+  constructor(private filesystemService: FilesystemService) { }
 
   ngOnInit() {
     // 先取設定回來

@@ -45,10 +45,17 @@ switch ($action) {
       )));
       return;
     }
+
+    // 輸出資料夾沒有就建立
+    if(!is_dir($target_location)){
+      mkdir($target_location);
+    }
+
     if (is_dir($target_file)) {
       deleteDirectory($target_file);
       deleteDirectory($target_file . ".Backup");
     }
+
     smartCopy($source_location . "GPK.Web." . $site_type, $target_file);
     smartCopy($theme_site, $target_file);
 

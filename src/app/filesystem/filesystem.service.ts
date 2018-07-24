@@ -13,8 +13,7 @@ export class FilesystemService {
   originalFileSetting: fileSetting = {
     vsts: 'E:/VSTS',
     originalFile: 'E:/',
-    target: 'E:/',
-    site_type: 'Portal'
+    target: 'E:/'
   };
 
   fileSetting: fileSetting;
@@ -40,7 +39,7 @@ export class FilesystemService {
   }
 
   processingFile(params) {
-    params = Object.assign(params, this.fileSetting);
+    params = Object.assign(this.fileSetting, params);
     return this.http.post<any>('/api/theme_file.php', params);
   }
 
